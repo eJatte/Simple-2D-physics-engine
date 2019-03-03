@@ -6,4 +6,4 @@ For any potential employers. This project is not what i would consider a finishe
 *This project was originally made during august 2018. Uploaded to Github 2019-02-23.*
 
 
-![](readme_files/name-of-giphy.gif)
+![](readme_files/collision_1.gif)
