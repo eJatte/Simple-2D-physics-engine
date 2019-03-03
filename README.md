@@ -5,5 +5,9 @@ For any potential employers. This project is not what i would consider a finishe
 
 *This project was originally made during august 2018. Uploaded to Github 2019-02-23.*
 
-
+## Collision in action
 ![](readme_files/collision_1.gif)
+
+
+
+![](readme_files/collision_2.gif)
