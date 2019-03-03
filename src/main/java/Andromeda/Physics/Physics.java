@@ -71,113 +71,6 @@ public class Physics {
      * @return  Resolved collision. With adjusted contact information.
      */
     public static ArrayList<Collision> resolveOverlap(Collection<CollisionClip> collisionClips){
-        class Overlap{
-            private Rigidbody r1, r2;
-            private Vector2 mtv;
-            private Vector2 extra;
-            //m is for r1 (1-m) r2
-            private double m;
-            private CollisionClip collisionClip;
-
-            public Overlap(Rigidbody r1, Rigidbody r2, Vector2 mtv, double m, CollisionClip collisionClip) {
-                this.r1 = r1;
-                this.r2 = r2;
-                this.mtv = mtv;
-                this.m = m;
-                this.collisionClip = collisionClip;
-                extra = new Vector2();
-            }
-
-            public void addExtra(Vector2 v){
-                extra = extra.add(v);
-            }
-
-            public Vector2 getExtra(){
-                return  extra;
-            }
-
-            public boolean isR1(Rigidbody r){
-                return  r == r1;
-            }
-
-            public Rigidbody getOther(Rigidbody r){
-                if(isR1(r)){
-                    return r2;
-                }
-                return r1;
-            }
-
-            public Rigidbody getR1() {
-                return r1;
-            }
-
-            public Rigidbody getR2() {
-                return r2;
-            }
-
-            public Vector2 getMtv() {
-                return mtv;
-            }
-
-            public Vector2 getMtv(Rigidbody rigidbody){
-                if(isR1(rigidbody)){
-                    return mtv;
-                } else {
-                    return mtv.inverse();
-                }
-            }
-
-            public double getM() {
-                return m;
-            }
-
-            public double getM(Rigidbody rigidbody){
-                if(isR1(rigidbody)){
-                    return m;
-                } else {
-                    return 1-m;
-                }
-            }
-
-            public void setM(Rigidbody rigidbody, double m){
-                if(isR1(rigidbody)){
-                    this.m = m;
-                } else {
-                    this.m = 1-m;
-                }
-            }
-
-            public CollisionClip getCollisionClip() {
-                return collisionClip;
-            }
-        }
-        class RigidbodyOverlaps{
-            private ArrayList<Overlap> overlaps = new ArrayList<>();
-            private Rigidbody rigidbody;
-
-            public RigidbodyOverlaps(Rigidbody rigidbody) {
-                this.rigidbody = rigidbody;
-            }
-
-            public void addOverlap(Overlap overlap){
-                Vector2 mtv = overlap.getMtv(rigidbody);
-                double m = overlap.getM(rigidbody);
-                if(m != 0.0) {
-                    for (Overlap o : overlaps) {
-                        Vector2 mtv2 = o.getMtv(rigidbody);
-                        double m2 = o.getM(rigidbody);
-                        if(mtv.dotProduct(mtv2) < 0){
-                            overlap.setM(rigidbody,0);
-                            overlap.addExtra(mtv2.multiply(m2));
-                        }
-                    }
-                }
-
-                overlaps.add(overlap);
-            }
-        }
-        HashMap<Rigidbody, RigidbodyOverlaps> rigidbodyOverlaps = new HashMap<>();
-        ArrayList<Overlap> overlaps = new ArrayList<>();
         ArrayList<Collision> resolvedCollision = new ArrayList<>();
 
         for(CollisionClip collisionClip : collisionClips){
@@ -220,30 +113,10 @@ public class Physics {
                 }
             }
 
-            if(!rigidbodyOverlaps.containsKey(rig1)){
-                rigidbodyOverlaps.put(rig1, new RigidbodyOverlaps(rig1));
-            }
-            if(!rigidbodyOverlaps.containsKey(rig2)){
-                rigidbodyOverlaps.put(rig2, new RigidbodyOverlaps(rig2));
-            }
-
-            Overlap overlap = new Overlap(rig1,rig2,mtv, m,collisionClip);
-
-            overlaps.add(overlap);
-        }
-
-        //Resolve overlap.
-        for (Overlap overlap: overlaps) {
-            Rigidbody rig1 = overlap.getR1();
-            Rigidbody rig2 = overlap.getR2();
-            Vector2 mtv = overlap.getMtv();
-            double m = overlap.getM();
-            CollisionClip collisionClip = overlap.getCollisionClip();
-
             rig1.gameObject.transform.translate(mtv.multiply(m));
             rig2.gameObject.transform.translate(mtv.inverse().multiply(1 - m));
 
-            resolvedCollision.add(new Collision(collisionClip,collisionClip.getCollisionManifold(m, overlap.getExtra())));
+            resolvedCollision.add(new Collision(collisionClip,collisionClip.getCollisionManifold(m)));
         }
 
         return resolvedCollision;
