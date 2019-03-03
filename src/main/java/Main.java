@@ -31,7 +31,7 @@ public class Main {
         g1.transform.setPosition(new Vector2(5,5));
         g1.transform.scale(new Vector2(2,2));
         g1.rigidbody.setMass(60);
-        g1.transform.rotate(0);
+        g1.transform.rotate(20);
         g1.rigidbody.isKinematic = false;
         g1.rigidbody.elasticity = 0.1;
         g1.collider.setDefaultColor(new Color(144, 66, 255));
@@ -41,21 +41,11 @@ public class Main {
         g2.transform.setPosition(new Vector2(5,14));
         g2.transform.scale(new Vector2(2,2));
         g2.rigidbody.setMass(60);
-        g2.transform.rotate(0);
+        g2.transform.rotate(35);
         g2.rigidbody.isKinematic = false;
         g2.rigidbody.elasticity = 0.1;
         g2.collider.setDefaultColor(new Color(144, 66, 255));
         GameObject.instantiate(g2);
-
-        GameObject g3 = new BoxObject();
-        g3.transform.setPosition(new Vector2(0,10));
-        g3.transform.scale(new Vector2(2,20));
-        g3.rigidbody.setMass(60);
-        g3.transform.rotate(0);
-        g3.rigidbody.isKinematic = false;
-        g3.rigidbody.elasticity = 0.1;
-        g3.collider.setDefaultColor(new Color(144, 66, 255));
-        GameObject.instantiate(g3);
 
 
         ObjectManipulator s1 = new ObjectManipulator();
