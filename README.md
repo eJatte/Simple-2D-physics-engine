@@ -5,12 +5,6 @@ For any potential employers. This project is not what i would consider a finishe
 
 *This project was originally made during august 2018. Uploaded to Github 2019-02-23.*
 
-## Collision in action
-![](readme_files/collision_1.gif)
-
-![](readme_files/collision_2.gif)
-
-
 ## About the project
 This project began with me wanting to do a simple collision detection for polygons, and evolved into doing physics aswell.
 
@@ -19,3 +13,11 @@ The collision detection is done using a self implementation of SAT and clipping 
 For translation and rotation 2x2 matrices and vectors are used.
 
 For the physics i used this wiki page https://en.wikipedia.org/wiki/Collision_response as reference. The equations on the wiki page are for three dimensions. The equations used in the project are the 3d equations converted to 2 dimensions by me. At the time i had very limited knowledge of linear algebra, so those convertions most likely contain errors.
+
+
+## Collision in action
+![](readme_files/collision_1.gif)
+
+![](readme_files/collision_2.gif)
+
+
